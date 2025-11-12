@@ -10,15 +10,16 @@ void delay(int t) {
 
 int main() 
 {
-    IODIR0 |= (0xFF);  // LEDs on P0.8–P0.15
+    IODIR0 |= (0xFF);  // LEDs on P0.8â€“P0.15
 
     while(1) 
 			{
-				int i;
+		int i;
         for(i=8; i<16; i++) {
             IOSET0 = (1 << i);
-            delay(200);
+            delay(500);
             IOCLR0 = (1 << i);
         }
     }
 }
+
