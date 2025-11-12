@@ -5,7 +5,7 @@
 void delay(int d) {
     int i, j;
     for(i=0; i<d; i++)
-        for(j=0; j<10000; j++);
+        for(j=0; j<12000; j++);
 }
 
 int main(void) {
@@ -14,8 +14,9 @@ int main(void) {
 
     while(1) {
         IOSET0 = leds;   // All ON
-        delay(300);
+        delay(500);
         IOCLR0 = leds;   // All OFF
-        delay(300);
+        delay(500);
     }
 }
+
