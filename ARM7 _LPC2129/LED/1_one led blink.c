@@ -1,4 +1,4 @@
-// Simple LED Blink – Direct Register Access
+// Simple Active High LED Blink â€“ Direct Register Access
 
 #include<LPC21xx.h>   // Header for LPC2129
 
@@ -22,3 +22,4 @@ int main()
         delay_ms(500);
     }
 }
+
