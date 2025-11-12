@@ -14,10 +14,11 @@ int main() {
     while(1) {
         IOSET0 = (0xAA << 8);  // 10101010 
         IOCLR0 = (0x55 << 8);  // 01010101 
-        delay(400);
+        delay(500);
 
         IOSET0 = (0x55 << 8);  // 01010101 
         IOCLR0 = (0xAA << 8);  // 10101010
-        delay(400);
+        delay(500);
     }
 }
+
