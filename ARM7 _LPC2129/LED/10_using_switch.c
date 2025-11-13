@@ -7,9 +7,10 @@ int main() {
     IODIR0 &= ~(1);  // Switch input on P0.0
 
     while(1) {
-        if(IOPIN0 & 1)  // Switch pressed (logic HIGH)
+        if(IOPIN0 & 1)  // Switch pressed 
             IOSET0 = (1 << 10);
         else
             IOCLR0 = (1 << 10);
     }
 }
+
