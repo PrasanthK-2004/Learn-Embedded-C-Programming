@@ -1,4 +1,4 @@
-// LED Binary Counter (0–255)
+// LED Binary Counter (0â€“255)
 
 #include <LPC21xx.h>
 
