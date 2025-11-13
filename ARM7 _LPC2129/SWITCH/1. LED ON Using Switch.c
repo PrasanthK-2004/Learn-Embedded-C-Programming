@@ -1,7 +1,6 @@
 #include <LPC21xx.h>
 
 
-
 int main() {
 
     // Configure P0.10 as output (LED)
