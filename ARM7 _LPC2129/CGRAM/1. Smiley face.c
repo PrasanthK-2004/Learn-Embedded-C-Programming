@@ -12,20 +12,20 @@ void delay(unsigned int t) {
 
 void lcd_cmd(unsigned char cmd) {
     IOCLR0 = LCD_DATA;            // Clear data pins
-    IOSET0 = (cmd << 8);          // Send command
+    IOSET0 = cmd;          // Send command
     IOCLR0 = RS;                  // RS = 0 ? Command
-    IOSET0 = EN; delay(1);
+    IOSET0 = EN; delay(20);
     IOCLR0 = EN;
-    delay(2);
+    delay(20);
 }
 
 void lcd_data(unsigned char data) {
     IOCLR0 = LCD_DATA;
-    IOSET0 = (data << 8);
+    IOSET0 = data;
     IOSET0 = RS;                  // RS = 1 ? Data
-    IOSET0 = EN; delay(1);
+    IOSET0 = EN; delay(20);
     IOCLR0 = EN;
-    delay(2);
+    delay(20);
 }
 
 void lcd_init() {
@@ -54,6 +54,7 @@ void lcd_create_custom_char() {
         lcd_data(smiley[i]);  // Write pattern
 
     lcd_cmd(0x80);  // Return to DDRAM (line 1 position 0)
+	delay(5);
 }
 
 int main(void) {
