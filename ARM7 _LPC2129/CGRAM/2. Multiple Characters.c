@@ -11,20 +11,20 @@ void delay(unsigned int t) {
 
 void lcd_cmd(unsigned char cmd) {
     IOCLR0 = LCD_DATA;
-    IOSET0 = (cmd << 8);
+    IOSET0 = cmd;
     IOCLR0 = RS;  // Command
-    IOSET0 = EN; delay(1);
+    IOSET0 = EN; delay(20);
     IOCLR0 = EN;
-    delay(2);
+    delay(20);
 }
 
 void lcd_data(unsigned char data) {
     IOCLR0 = LCD_DATA;
-    IOSET0 = (data << 8);
+    IOSET0 = data;
     IOSET0 = RS;  // Data
-    IOSET0 = EN; delay(1);
+    IOSET0 = EN; delay(20);
     IOCLR0 = EN;
-    delay(2);
+    delay(20);
 }
 
 void lcd_init() {
@@ -56,13 +56,14 @@ void lcd_load_custom_chars() {
             lcd_data(custom_chars[c][i]);
     }
     lcd_cmd(0x80); // Return to DDRAM (line 1 pos 0)
+		delay(5);
 }
 
 void lcd_display_custom_chars() {
 	int i;
     lcd_cmd(0x80); // Line 1 start
     for(i=0;i<8;i++)
-        lcd_data(i); // Display 07 chars
+        lcd_data(i); // Display 0?7 chars
 
     lcd_cmd(0xC0); // Line 2 start
     for(i=0;i<8;i++)
