@@ -4,14 +4,12 @@
 #define EN (1 << 9)
 #define DATA 0xFF
 
-//------------------ DELAY --------------------
 void delay(unsigned int t){
     unsigned int i,j;
     for(i=0;i<t;i++)
         for(j=0;j<1000;j++);
 }
 
-//------------------ LCD COMMAND ----------------
 void lcd_cmd(unsigned char cmd){
     IOCLR0 = DATA;         // Clear P0.0-P0.7
     IOSET0 = cmd;        // Put cmd on P0.0-7
@@ -21,7 +19,6 @@ void lcd_cmd(unsigned char cmd){
     delay(2);
 }
 
-//------------------ LCD DATA --------------------
 void lcd_data(unsigned char data){
     IOCLR0 = DATA;
     IOSET0 = data;
@@ -31,7 +28,6 @@ void lcd_data(unsigned char data){
     delay(2);
 }
 
-//------------------ LCD INIT ---------------------
 void lcd_init(){
     IODIR0 |= DATA | RS | EN;   // LCD pins output
     delay(20);
@@ -70,7 +66,7 @@ void lcd_display_number(int num)
 			lcd_data(arr[i]+'0');
 	}
 }
-//------------------ MAIN -------------------------
+
 int main(){
 	int count=0;
     lcd_init();
