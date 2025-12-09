@@ -10,7 +10,7 @@ void delay(int t) {
 
 int main() 
 {
-    IODIR0 |= (0xFF);  // LEDs on P0.8–P0.15
+    IODIR0 |= (0xFF<<8);  // LEDs on P0.8–P0.15
 
     while(1) 
 			{
@@ -22,4 +22,5 @@ int main()
         }
     }
 }
+
 
