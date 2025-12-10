@@ -13,7 +13,7 @@ void delay(unsigned int count) {
 
 void lcd_cmd(unsigned char cmd) {
     IOCLR0 = DATA;
-    IOSET0 = (cmd << 8);
+    IOSET0 = cmd;
     IOCLR0 = RS;
     //IOCLR0 = RW;
     IOSET0 = EN;
@@ -24,7 +24,7 @@ void lcd_cmd(unsigned char cmd) {
 
 void lcd_data(unsigned char data) {
     IOCLR0 = DATA;
-    IOSET0 = (data << 8);
+    IOSET0 = data;
     IOSET0 = RS;
     //IOCLR0 = RW;
     IOSET0 = EN;
