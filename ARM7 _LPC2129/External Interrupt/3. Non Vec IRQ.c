@@ -5,7 +5,7 @@
 void eint0_isr(void) __irq;
 
 int main() 
-{	__enable_irq();
+{	
     	PINSEL1  = 0x01;         // P0.16 -> EINT0
 	IODIR0 = led;   // LED output
 
