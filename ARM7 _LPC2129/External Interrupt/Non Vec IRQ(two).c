@@ -30,13 +30,13 @@ void eint_isr(void) __irq
     if(EXTINT & 0x01)
     {
         EXTINT = 0x01;
-        IOCLR0 = led1;
+        IOSET0 = led1;
     }
 
     if(EXTINT & 0x02)
     {
         EXTINT = 0x02;
-        IOCLR0 = led2;
+        IOSET0 = led2;
     }
 
     VICVectAddr = 0;
