@@ -1,37 +1,31 @@
-// EINT0 as Non Vectored IRQ (select falling sensitivity)
-
 #include <LPC21xx.h>
-#define led 1<<17;
+
+#define LED (1<<17)
+
 void eint0_isr(void) __irq;
 
-int main() 
-{	
-    	PINSEL1  = 0x01;         // P0.16 -> EINT0
-	IODIR0 = led;   // LED output
+int main()
+{
+    PINSEL1 |= 0x01;          // P0.16 -> EINT0
+    IODIR0 = LED;             // LED output
 
-    	VICIntSelect  =0;		// As vectored IRQ
-    	VICDefVectAddr = (unsigned long)eint0_isr;
+    VICIntSelect &= ~(1 << 14);   // Select EINT0 as IRQ
 
-    	EXTMODE = 0x01;          // edge sensitive
-    	EXTPOLAR = 0;            // falling edge
+    VICDefVectAddr = (unsigned long)eint0_isr;
 
-	VICIntEnable |= (1 << 14); 
-    
+    EXTMODE = 0x01;           // Edge sensitive
+    EXTPOLAR = 0x00;          // Falling edge
 
-    while(1)
-    {	int i;
-    	IOSET0 = led;
-	for(i=0;i<500000;i++);
-	IOCLR0 = led;
-	for(i=0;i<500000;i++);
-    }
+    VICIntEnable |= (1 << 14);
 
+    while(1);
 }
 
-
-void eint0_isr(void) __irq 
+void eint0_isr(void) __irq
 {
-    	EXTINT = 0x01;           // Clear EINT0 flag
-	IOSET0 = led;         // Turn ON LED
-    	VICVectAddr = 0;      // Acknowledge
+    EXTINT = 0x01;            // Clear EINT0 interrupt flag
+
+    IOSET0 = LED;             // LED ON
+
+    VICVectAddr = 0x00;       // Acknowledge interrupt
 }
