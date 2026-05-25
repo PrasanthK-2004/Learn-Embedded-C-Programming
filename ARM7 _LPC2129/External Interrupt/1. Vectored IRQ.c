@@ -1,31 +1,34 @@
-// EINT0 as Vectored IRQ (allocate slot-0 ,select low level sensitivity)
-
 #include <LPC21xx.h>
-#define led 1<<17;
+
+#define LED (1 << 17)
+
 void eint0_isr(void) __irq;
 
-int main() 
+int main()
 {
-    	PINSEL1 |= 1;         // P0.16 -> EINT0
-	IODIR0 = led;   // LED output
+    PINSEL1 |= (1 << 0);   // P0.16 -> EINT0
 
-    	VICIntSelect &= ~(1 << 14);		// As vectored IRQ
-	VICVectCntl0 = 0x20 | 14;
-    	VICVectAddr0 = (unsigned long)eint0_isr;
+    IODIR0 |= LED;
 
-    	EXTMODE = 0;          // level sensitive
-    	EXTPOLAR = 0;         // low level
+    // VIC configuration (Vectored IRQ slot 0)
+    VICIntSelect &= ~(1 << 14);      // IRQ (not FIQ)
+    VICVectCntl0 = (1 << 5) | 14;    // enable slot 0, EINT0
+    VICVectAddr0 = (unsigned long)eint0_isr;
 
-	VICIntEnable = (1 << 14); 
-    
+    // External interrupt config
+    EXTMODE = 1;     // edge triggered
+    EXTPOLAR = 0;    // falling edge
+
+    VICIntEnable = (1 << 14);
 
     while(1);
 }
 
-
-void eint0_isr(void) __irq 
+void eint0_isr(void) __irq
 {
-    	EXTINT = 1;           // Clear EINT0 flag
-	IOSET0 = led;   // Turn ON LED
-    	VICVectAddr = 0;      // Acknowledge
+    EXTINT = (1 << 0);     // clear interrupt flag
+
+    IOSET0 = LED;          // LED ON
+
+    VICVectAddr = 0;       // acknowledge VIC
 }
